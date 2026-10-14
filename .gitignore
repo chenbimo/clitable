@@ -1,0 +1,6 @@
+.mooncakes/
+.temp/
+_build/
+_build-wsl/
+*.log
+nul
