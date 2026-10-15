@@ -312,13 +312,21 @@ fn sum_of(xs : Array[Int32]) -> Int32 {
 ///|
 /// 在给定预算里按均摊方式削列宽：每轮对所有还能再减的列减同样的量，到最小宽
 /// 就停，绝不把列压到装不下内边距。
-fn shrink_to(widths : Array[Int32], budget : Int32, min_col : Int32) -> Unit {
+///
+/// `explicit` 标记显式列宽的列：这些列不参与削减。显式 `Column.width` 是用户
+/// 的决定，总宽预算只能向自动列伸手，不能反悔用户写下的数字。
+fn shrink_to(
+  widths : Array[Int32],
+  budget : Int32,
+  min_col : Int32,
+  explicit : Array[Bool],
+) -> Unit {
   let mut steps = 0
   while sum_of(widths) > budget && steps < 1000 {
     steps += 1
     let mut cuttable = 0
-    for w in widths {
-      if w > min_col {
+    for i in 0..<widths.length() {
+      if !explicit[i] && widths[i] > min_col {
         cuttable += 1
       }
     }
@@ -328,7 +336,7 @@ fn shrink_to(widths : Array[Int32], budget : Int32, min_col : Int32) -> Unit {
     let over = sum_of(widths) - budget
     let per = if over / cuttable > 0 { over / cuttable } else { 1 }
     for i in 0..<widths.length() {
-      if widths[i] > min_col {
+      if !explicit[i] && widths[i] > min_col {
         let next = widths[i] - per
         widths[i] = if next < min_col { min_col } else { next }
       }
@@ -421,7 +429,7 @@ pub fn compute_col_widths(
   match total_width {
     Some(budget) =>
       // 每列之间与两侧各有一条分隔线，也要算进总宽。
-      shrink_to(result, budget - (ncols + 1), min_col)
+      shrink_to(result, budget - (ncols + 1), min_col, explicit)
     None => ()
   }
   result
