@@ -1,0 +1,6 @@
+import {
+  "chensuiyi/clitable",
+  "chensuiyi/clicolor",
+}
+
+pkgtype(kind: "executable")

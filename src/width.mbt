@@ -42,7 +42,7 @@ fn scan_ansi(state : Int32, c : Char) -> (Int32, Bool) {
       }
     SCAN_CSI => if is_csi_end(c) { (SCAN_TEXT, true) } else { (SCAN_CSI, true) }
     SCAN_OSC => if is_osc_end(c) { (SCAN_TEXT, true) } else { (SCAN_OSC, true) }
-    _ => if c == ESC { (SCAN_ESC, true) } else { (SCAN_TEXT, false) }
+    _ => if c == @clicolor.ESC { (SCAN_ESC, true) } else { (SCAN_TEXT, false) }
   }
 }
 
@@ -158,8 +158,9 @@ pub fn truncate_to(text : String, width : Int32, symbol : String) -> String {
   let mut ret = take_width(text, keep)
   ret += symbol
   // 截断可能把 OSC 8 超链接的收尾序列切掉，补一个，免得后面的文字也被当成链接。
-  if text.contains(OSC8_PREFIX) && !ret.contains(OSC8_SUFFIX) {
-    ret += OSC8_SUFFIX
+  if text.contains(@clicolor.OSC8_PREFIX) &&
+    !ret.contains(@clicolor.OSC8_SUFFIX) {
+    ret += @clicolor.OSC8_SUFFIX
   }
   ret
 }

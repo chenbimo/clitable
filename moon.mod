@@ -16,5 +16,5 @@ readme = "README.md"
 
 import {
   "moonbit-community/unicodewidth@0.2.1",
-  "chensuiyi/clicolor@0.1.0",
+  "chensuiyi/clicolor@0.2.0",
 }
