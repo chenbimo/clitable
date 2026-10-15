@@ -4,3 +4,8 @@ _build/
 _build-wsl/
 *.log
 nul
+
+# 文档站是仓库里唯一的 JS 工具链:锁文件跟,依赖与产物不跟。
+docs/node_modules/
+docs/.vitepress/cache/
+docs/dist/

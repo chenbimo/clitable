@@ -58,6 +58,13 @@
 - 快检（改完即跑）：`moon check --deny-warn --target-dir _build-wsl`
 - 全量（批次收尾）：`bash scripts/devkit/verify.sh`（fmt / check / 多 target 测试 / 构建）
 
+## 文档站
+
+- VitePress 站点在 `docs/`，中文单语；依赖与构建在 Windows 侧跑，锁文件（`docs/bun.lock`）跟踪，`node_modules`、构建产物与缓存不跟踪
+- 部署在 `clitable.moonbitlang.dev`（子域名根路径，`base` 为 `'/'`），托管于 Cloudflare Pages 项目 `moonbit-clitable`，推送到 `main` 且 `docs/**` 或 `moon.mod` 有改动时自动重建
+- 构建环境变量 `BUN_VERSION`（与写本地锁文件的 bun 版本一致）与 `SKIP_DEPENDENCY_INSTALL=1` 必设，值与原因以及全套上站流程见工作区规范 `NEW-PROJECT.md`
+- 名称约定：Pages 项目 `moonbit-clitable`，自定义域 `clitable.moonbitlang.dev`，提交前缀 `clitable`
+
 ## Git Hooks 与脚本
 
 激活（仓库初始化后执行一次）：
