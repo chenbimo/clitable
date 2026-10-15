@@ -9,8 +9,8 @@ pub struct Table {
   chars : Chars
   pad_l : Int32
   pad_r : Int32
-  head_style : Array[Ansi]
-  border_style : Array[Ansi]
+  head_style : @clicolor.Style
+  border_style : @clicolor.Style
   total_width : Int32?
   row_height : Int32?
   word_wrap : Bool
@@ -30,8 +30,8 @@ pub fn Table::new(cols : Array[Column]) -> Table {
     chars: Chars::single(),
     pad_l: 1,
     pad_r: 1,
-    head_style: [],
-    border_style: [],
+    head_style: @clicolor.default,
+    border_style: @clicolor.default,
     total_width: None,
     row_height: None,
     word_wrap: false,
@@ -96,14 +96,14 @@ pub fn Table::with_word_boundary(self : Table, on : Bool) -> Table {
 }
 
 ///|
-/// 表头与边框的样式，可叠加。
-pub fn Table::with_head_style(self : Table, styles : Array[Ansi]) -> Table {
-  { ..self, head_style: styles, }
+/// 表头与边框的样式。传一个 Style 值，空 Style 原样返回。
+pub fn Table::with_head_style(self : Table, style : @clicolor.Style) -> Table {
+  { ..self, head_style: style, }
 }
 
 ///|
-pub fn Table::with_border_style(self : Table, styles : Array[Ansi]) -> Table {
-  { ..self, border_style: styles, }
+pub fn Table::with_border_style(self : Table, style : @clicolor.Style) -> Table {
+  { ..self, border_style: style, }
 }
 
 ///|

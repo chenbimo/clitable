@@ -19,8 +19,8 @@ priv struct DrawCtx {
   col_widths : Array[Int32]
   row_heights : Array[Int32]
   cols : Array[Column]
-  head_style : Array[Ansi]
-  border_style : Array[Ansi]
+  head_style : @clicolor.Style
+  border_style : @clicolor.Style
   truncate : String
   wrap : Bool
   on_word_boundary : Bool
@@ -150,7 +150,7 @@ fn placed_lines(ctx : DrawCtx, p : Placed) -> Array[String] {
   )
   // 超链接逐行包：终端按行渲染，跨行的 OSC 8 在多数终端里不会继承。
   match p.cell.link {
-    Some(url) => raw.map(fn(line) { hyperlink(url, line) })
+    Some(url) => raw.map(fn(line) { @clicolor.hyperlink(url, line) })
     None => raw
   }
 }
@@ -234,16 +234,14 @@ fn stylize(
   right : String,
 ) -> String {
   let styled_content = if p.y == 0 && ctx.has_head {
-    wrap_ansi(ctx.head_style, content)
+    ctx.head_style.text(content)
   } else {
     match p.cell.color {
-      Some(c) => c.paint(content)
+      Some(c) => c.text(content)
       None => content
     }
   }
-  wrap_ansi(ctx.border_style, left) +
-  styled_content +
-  wrap_ansi(ctx.border_style, right)
+  ctx.border_style.text(left) + styled_content + ctx.border_style.text(right)
 }
 
 ///|
@@ -272,7 +270,7 @@ fn draw_top(ctx : DrawCtx, p : Placed) -> String {
       },
     )
   }
-  wrap_ansi(ctx.border_style, buf.to_string())
+  ctx.border_style.text(buf.to_string())
 }
 
 ///|
@@ -284,7 +282,7 @@ fn draw_bottom(ctx : DrawCtx, p : Placed) -> String {
   } else {
     ""
   }
-  wrap_ansi(ctx.border_style, left + content + right)
+  ctx.border_style.text(left + content + right)
 }
 
 ///|

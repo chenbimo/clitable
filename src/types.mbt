@@ -76,7 +76,7 @@ pub struct Cell {
   row_span : Int32
   h_align : Align?
   v_align : VAlign?
-  color : Ansi?
+  color : @clicolor.Style?
   truncate : String?
   link : String?
 } derive(Debug)
@@ -119,7 +119,7 @@ pub fn Cell::bottom(self : Cell) -> Cell {
 }
 
 ///|
-pub fn Cell::color(self : Cell, color : Ansi) -> Cell {
+pub fn Cell::color(self : Cell, color : @clicolor.Style) -> Cell {
   { ..self, color: Some(color), }
 }
 

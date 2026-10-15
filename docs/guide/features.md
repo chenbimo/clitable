@@ -33,3 +33,16 @@ Table::new(cols).with_row_height(2)
 
 默认输出无颜色、无边框色,避免在管道、日志、CI 里出现意外转义序列。
 颜色与样式全部 opt-in,终端能力探测由调用方负责——clitable 不读环境。
+
+clitable 不做自己的颜色封装,直接消费 [clicolor](https://mooncakes.io/docs/chensuiyi/clicolor) 的 `Style` 值,写法与里头首页一致:
+
+```moonbit
+let table = @clitable.Table::new(cols)
+  .with_head_style(@clicolor.green.bold())
+  .with_border_style(@clicolor.blue)
+
+@clitable.Cell::text("failed").color(@clicolor.red)
+@clitable.Cell::text("beta").color(@clicolor.bold.yellow())
+```
+
+参数一律收 `Style`,不收枚举或数组,说明细节在 clicolor 的 README。

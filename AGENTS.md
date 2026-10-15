@@ -14,8 +14,7 @@
 | --- | --- |
 | `src/types.mbt` | `Align` / `VAlign` / `Column` / `Cell` / `ToCell` / `ToRow` / `TableError` |
 | `src/chars.mbt` | 边框字符集 `Chars` 与六个预设 |
-| `src/ansi.mbt` | `Ansi` 样式枚举、SGR 序列生成、样式包裹 |
-| `src/width.mbt` | 显示宽度、剥 ANSI、补齐、截断、断行 |
+| `src/width.mbt` | 显示宽度、剥 ANSI、补齐、截断、断行（颜色/链接由依赖 `chensuiyi/clicolor` 提供） |
 | `src/layout.mbt` | 布局网格（位置分配、空洞填补、两类占位格）、列宽行高 |
 | `src/cell.mbt` | 单元格绘制、交叉字符选择、跨行委托 |
 | `src/table.mbt` | `Table` 构建器、渲染管线、`Show` |
