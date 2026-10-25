@@ -5,6 +5,9 @@ _build-wsl/
 *.log
 nul
 
+# 编译器为每个包生成的接口文件(0.10.17 起落在包根),构建时重建
+pkg.generated.mbti
+
 # 文档站是仓库里唯一的 JS 工具链:锁文件跟,依赖与产物不跟。
 docs/node_modules/
 docs/.vitepress/cache/
