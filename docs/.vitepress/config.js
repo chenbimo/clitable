@@ -51,6 +51,11 @@ export default defineConfig({
   description: '用 MoonBit 写的终端表格渲染库。',
   cleanUrls: true,
   outDir: 'dist',
+  // 站点图标统一用 site 仓库的素材,与工作区其它站保持同一个印记。
+  head: [
+    ['link', { rel: 'icon', type: 'image/svg+xml', href: '/favicon.svg' }],
+    ['link', { rel: 'apple-touch-icon', sizes: '180x180', href: '/icons/apple-touch-icon-180.png' }],
+  ],
   themeConfig: {
     socialLinks: [{ icon: 'github', link: repository }],
     nav: [
