@@ -4,8 +4,8 @@
 
 ## 工具链
 
-- **MoonBit 以 WSL 里的版本为准**（当前 `moonc v0.10.15+943464bfa`），构建、测试、格式化全部在 WSL 执行
-- 构建目录用 `_build-wsl`（显式目标），避免与 IDE 侧产物互相污染
+工作区通用铁律（WSL 编译、`_build`/`_build-wsl` 两级目录、wsl 互操作文件通道、push 只在 Windows、告警档连写、依赖库读源码、测试三档）见上级 `../AGENTS.md`，本节只写本仓库特有的。
+
 - 命令模板：`wsl -d Debian -- bash -lc 'cd /mnt/c/codes/moonbit/clitable && <命令>'`
 
 ## 目录地图
